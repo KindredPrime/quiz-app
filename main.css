@@ -6,3 +6,22 @@ header h1 {
     background-color: lightgrey;
     padding: 15px;
 }
+
+fieldset {
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+/*
+    Displays the radio input and its label on the same line
+*/
+/*.js-quiz-form input[type="radio"], .js-quiz-form input[type="radio"]+label {
+    display: inline-block;
+}*/
+
+.js-quiz-form button[type="submit"] {
+    display: block;
+}
