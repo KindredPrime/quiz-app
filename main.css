@@ -1,8 +1,29 @@
+header {
+    position: relative;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 header h1 {
     text-align: center;
+    margin-bottom: 0;
+}
+
+.question-number, .score {
+    position: absolute;
+}
+
+.question-number {
+    left: 25%;
+}
+
+.score {
+    left: 55%;
 }
 
 .js-quiz-form {
+    margin-top: 75px;
     background-color: lightgrey;
     padding: 15px;
 }
