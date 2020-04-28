@@ -57,18 +57,31 @@ fieldset {
     display: block;
 }
 
-.correct-answer {
+.correct-answer, .wrong-answer {
     border: 1px solid black;
     padding: 10px;
     margin: 10px;
-    width: 75px;
     background-color: white;
 }
 
-.correct-answer p {
+.correct-answer {
+    width: 75px;
+}
+
+.wrong-answer {
+    width: 300px;
+}
+
+.correct-answer p, .wrong-answer p {
     margin: 0;
-    text-align: center;
+}
+
+.correct-answer p {
     color: green;
+}
+
+.wrong-answer p {
+    color: red;
 }
 
 .next-button {

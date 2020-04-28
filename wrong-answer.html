@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Song of Ice and Fire Quiz</title>
+    <meta name="description" content="Quiz that tests your knowledge of the book series 'A Song of Ice and Fire'">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <h1>A Song of Ice and Fire Quiz</h1>
+        <h2 class="question-number">Question: 1/8</h2>
+        <h2 class="score">Score: 0/8</h2>
+    </header>
+    
+    <main>
+        <form class="js-quiz-form" action="">
+            <fieldset>
+                <legend>Who is the quthor of A Song of Ice and Fire?</legend>
+                <input type="radio" id="tolkien" name="author" value="tolkien" checked>
+                <label for="tolkien">J. R. R. Tolkien</label>
+                <br>
+                <div class="wrong-answer">
+                    <p>You know nothing.</p>
+                    <p>The correct answer is: George R. R. Martin</p>
+                </div>
+                <input type="radio" id="martin" name="author" value="martin">
+                <label for="martin">George R. R. Martin</label>
+                <br>
+                <input type="radio" id="rowling" name="author" value="rowling">
+                <label for="rowling">J. K. Rowling</label>
+                <br>
+                <input type="radio" id="snow" name="author" value="snow">
+                <label for="snow" class='last-answer'>Jon Snow</label>
+            </fieldset>
+            <button type="submit" class="next-button">Next ></button>
+        </form>
+    </main>
+</body>
+</html>
