@@ -23,9 +23,14 @@ header h1 {
 }
 
 .js-quiz-form {
+    position: relative;
     margin-top: 75px;
     background-color: lightgrey;
     padding: 15px;
+}
+
+legend {
+    margin-bottom: 10px;
 }
 
 fieldset {
@@ -43,6 +48,31 @@ fieldset {
     display: inline-block;
 }*/
 
+.last-answer {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
 .js-quiz-form button[type="submit"] {
     display: block;
+}
+
+.correct-answer {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 75px;
+    background-color: white;
+}
+
+.correct-answer p {
+    margin: 0;
+    text-align: center;
+    color: green;
+}
+
+.next-button {
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
 }
