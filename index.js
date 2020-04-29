@@ -1,14 +1,8 @@
 function handleQuiz(quizQuestions) {
-
-    // Renders the question and score trackers on the page
-    function renderTrackers() {
-        $("header").append(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2><h2 class="score">Score: 0/${quizQuestions.length}</h2>`);
-    }
-
     function updateQuestionTracker(questionNumber) {
         // Check if the question number tracker has been added to the DOM yet
         if($(".question-number").length === 0) {
-            $("header h1").after(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2>`);
+            $(".quiz-title").after(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2>`);
         }
         else {
             $(".question-number").html(`Question: ${questionNumber}/${quizQuestions.length}`);
@@ -32,8 +26,8 @@ function handleQuiz(quizQuestions) {
         $(".js-quiz-start").click(event => {
             event.preventDefault();
 
-            // Render the Question and Score trackers
-            //renderTrackers();
+            // Add the score tracker to the DOM
+            $("header").append(`<h2 class="score">Score: 0/${quizQuestions.length}</h2>`);
 
             // Render the first question
             renderQuestion(1);
@@ -41,17 +35,8 @@ function handleQuiz(quizQuestions) {
     }
  
     // Render content that tells the user if their answer was right or wrong
-    function renderEvaluation(userAnswer) {
-        let questionNumber = $(".js-quiz-form").find("legend").data("question-number");
-        let correctAnswer = quizQuestions[questionNumber-1].correctAnswer;
-
-        let htmlElements = "";
-        if(userAnswer.html() === correctAnswer) {
-            htmlElements = `<div class="correct-answer"><p>Correct!</p></div>`;
-        }
-        else { // Wrong answer
-            htmlElements = `<div class="wrong-answer"><p>You know nothing.</p><p>The correct answer is: ${correctAnswer}</p></div>`;
-        }
+    function renderEvaluation(userAnswer, correctAnswer) {
+        let htmlElements = userAnswer.html() === correctAnswer ? `<div class="correct-answer"><p>Correct!</p></div>` : `<div class="wrong-answer"><p>You know nothing.</p><p>The correct answer is: ${correctAnswer}</p></div>`;
 
         // Add the HTML elements below their answer telling them their answer is correct
         if(userAnswer.next("br").length > 0) {
@@ -59,6 +44,25 @@ function handleQuiz(quizQuestions) {
         }
         else { // There's no <br> element following the label, so just add the HTML elements directly below the label
             userAnswer.after(htmlElements);
+        }
+    }
+
+    function increaseScore() {
+        let score = $(".score").html().split(" ")[1].split('/')[0];
+        score = ++score;
+        $(".score").html(`Score: ${score}/${quizQuestions.length}`);
+    }
+
+    // Check the user's answer to the question
+    function evaluateAnswer(userAnswer) {
+        let questionNumber = $(".js-quiz-form").find("legend").data("question-number");
+        let correctAnswer = quizQuestions[questionNumber-1].correctAnswer;
+        //let userIsCorrect = userAnswer.html() === correctAnswer;
+
+        renderEvaluation(userAnswer, correctAnswer);
+        
+        if(userAnswer.html() === correctAnswer) {
+            increaseScore();
         }
     }
 
@@ -83,7 +87,7 @@ function handleQuiz(quizQuestions) {
                 alert("You must select an answer");
             }
             else { // An answer was selected
-                renderEvaluation(selectedAnswer);
+                evaluateAnswer(selectedAnswer);
                 renderNextButton();
             }
         });
@@ -91,7 +95,8 @@ function handleQuiz(quizQuestions) {
 
     // Renders the final quiz results layout
     function renderQuizResults() {
-        $(".js-quiz-form").html(`<p>Your final score is 8/8.</p><button type="submit" class="js-restart-quiz">Restart Quiz</button>`);
+        let finalScore = $(".score").html().split(" ")[1];
+        $(".js-quiz-form").html(`<p>Your final score is ${finalScore}.</p><button type="submit" class="js-restart-quiz">Restart Quiz</button>`);
     }
 
     // Handles generating the next layout when the user clicks the "Next >" button
@@ -119,6 +124,9 @@ function handleQuiz(quizQuestions) {
     function handleQuizRestart() {
         $(".js-quiz-form").on("click", ".js-restart-quiz", event => {
             event.preventDefault();
+
+            // Reset the score tracker
+            $(".score").html(`Score: 0/${quizQuestions.length}`);
 
             // Render the first question
             renderQuestion(1);
