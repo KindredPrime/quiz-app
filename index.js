@@ -5,14 +5,14 @@ function handleQuiz(quizQuestions) {
         $("header").append(`<h2 class="question-number">Question: 1/8</h2><h2 class="score">Score: 0/8</h2>`);
     }
 
-    // Renders the question found at the provided index in quizQuestions
+    // Renders the question for the provided number
     function renderQuestion(questionNumber) {
-        let question = quizQuestions[questionNumber].question;
-        let answerOptions = quizQuestions[questionNumber].answerOptions;
-        let name = quizQuestions[questionNumber].htmlRadioName;
-        let questionID = quizQuestions[questionNumber].questionID;
+        let question = quizQuestions[questionNumber-1];
+        let questionText = question.questionText;
+        let answerOptions = question.answerOptions;
+        let name = question.htmlRadioName;
 
-        $(".js-quiz-form").html(`<fieldset><legend data-question-id="${questionID}">${question}</legend><input type="radio" id=${answerOptions[0].htmlID} name=${name} value=${answerOptions[0].htmlID} required><label for=${answerOptions[0].htmlID}>${answerOptions[0].answer}</label><br><input type="radio" id=${answerOptions[1].htmlID} name=${name} value=${answerOptions[1].htmlID}><label for=${answerOptions[1].htmlID}>${answerOptions[1].answer}</label><br><input type="radio" id=${answerOptions[2].htmlID} name=${name} value=${answerOptions[2].htmlID}><label for=${answerOptions[2].htmlID}>${answerOptions[2].answer}</label><br><input type="radio" id=${answerOptions[3].htmlID} name=${name} value=${answerOptions[3].htmlID}><label for=${answerOptions[3].htmlID} class="last-answer">${answerOptions[3].answer}</label></fieldset><button type="submit" class="js-submit-answer">Submit</button>`);
+        $(".js-quiz-form").html(`<fieldset><legend data-question-number="${questionNumber}">${questionText}</legend><input type="radio" id=${answerOptions[0].htmlID} name=${name} value=${answerOptions[0].htmlID} required><label for=${answerOptions[0].htmlID}>${answerOptions[0].answer}</label><br><input type="radio" id=${answerOptions[1].htmlID} name=${name} value=${answerOptions[1].htmlID}><label for=${answerOptions[1].htmlID}>${answerOptions[1].answer}</label><br><input type="radio" id=${answerOptions[2].htmlID} name=${name} value=${answerOptions[2].htmlID}><label for=${answerOptions[2].htmlID}>${answerOptions[2].answer}</label><br><input type="radio" id=${answerOptions[3].htmlID} name=${name} value=${answerOptions[3].htmlID}><label for=${answerOptions[3].htmlID} class="last-answer">${answerOptions[3].answer}</label></fieldset><button type="submit" class="js-submit-answer">Submit</button>`);
     }
     
     // Handles starting the quiz when the user clicks the "Start Quiz" button
@@ -30,7 +30,7 @@ function handleQuiz(quizQuestions) {
             renderTrackers();
 
             // Render the first question
-            renderQuestion(0);
+            renderQuestion(1);
         });
 
         return quizStartLayout;
@@ -38,8 +38,8 @@ function handleQuiz(quizQuestions) {
  
     // Render content that tells the user if their answer was right or wrong
     function renderEvaluation(userAnswer) {
-        let questionID = $(".js-quiz-form").find("legend").data("question-id");
-        let correctAnswer = quizQuestions[questionID].correctAnswer;
+        let questionNumber = $(".js-quiz-form").find("legend").data("question-number");
+        let correctAnswer = quizQuestions[questionNumber-1].correctAnswer;
 
         let htmlElements = "";
         if(userAnswer.html() === correctAnswer) {
@@ -103,7 +103,7 @@ function handleQuiz(quizQuestions) {
 
 $(handleQuiz([
     {
-        question: "Who is the author of A Song of Ice and Fire?",
+        questionText: "Who is the author of A Song of Ice and Fire?",
         answerOptions: [
             {
                 answer: "J. R. R. Tolkien",
@@ -119,35 +119,132 @@ $(handleQuiz([
                 htmlID: "snow"
         }],
         correctAnswer: "George R. R. Martin",
-        htmlRadioName: "author",
-        questionID: 0
+        htmlRadioName: "author"
     }, {
-        question: "What is the name of the third book in the Song of Ice and Fire book series?",
-        answerOptions: ["A Hail of Halberds", "A Monsoon of Maces", "A Storm of Swords", "A Downpour of Duels"],
-        correctAnswer: "A Storm of Swords"
+        questionText: "What is the name of the third book in the Song of Ice and Fire book series?",
+        answerOptions: [
+            {
+                answer: "A Hail of Halberds",
+                htmlID: "halberds"
+            }, {
+                answer: "A Monsoon of Maces",
+                htmlID: "maces"
+            }, {
+                answer: "A Storm of Swords",
+                htmlID: "swords"
+            }, {
+                answer: "A Downpour of Duels",
+                htmlID: "duels"
+        }],
+        correctAnswer: "A Storm of Swords",
+        htmlRadioName: "third-book"
     }, {
-        question: "What is the name of the headquarters of the Night's Watch?",
-        answerOptions: ["Castle Black", "Eastwatch by the Sea", "Winterfell", "Hardhome"],
-        correctAnswer: "Castle Black"
+        questionText: "What is the name of the headquarters of the Night's Watch?",
+        answerOptions: [
+            {
+                answer: "Castle Black",
+                htmlID: "black"
+            }, {
+                answer: "Eastwatch by the Sea",
+                htmlID: "eastwatch"
+            }, {
+                answer: "Winterfell",
+                htmlID: "winterfell"
+            }, {
+                answer: "Hardhome",
+                htmlID: "hardhome"
+            }],
+        correctAnswer: "Castle Black",
+        htmlRadioName: "headquarters"
     }, {
-        question: "What is the name of the throne of Westeros?", 
-        answerOptions: ["The Iron Throne", "The Steel Seat", "The Chair of China", "Hot Pie"],
-        correctAnswer: "The Iron Throne"
+        questionText: "What is the name of the throne of Westeros?", 
+        answerOptions: [
+            {
+                answer: "The Iron Throne",
+                htmlID: "iron"
+            }, {
+                answer: "The Steel Seat",
+                htmlID: "steel"
+            }, {
+                answer: "The Chair of China",
+                htmlID: "china"
+            }, {
+                answer: "Hot Pie",
+                htmlID: "pie"
+            }],
+        correctAnswer: "The Iron Throne",
+        htmlRadioName: "throne"
     }, {
-        question: "What is the name of Jon Snow's direwolf?",
-        answerOptions: ["Snow", "Rain", "Ghost", "Casper"],
-        correctAnswer: "Ghost"
+        questionText: "What is the name of Jon Snow's direwolf?",
+        answerOptions: [
+            {
+                answer: "Snow",
+                htmlID: "snow"
+            }, {
+                answer: "Rain",
+                htmlID: "rain"
+            }, {
+                answer: "Ghost",
+                htmlID: "ghost"
+            }, {
+                answer: "Casper",
+                htmlID: "casper"
+            }],
+        correctAnswer: "Ghost",
+        htmlRadioName: "direwolf"
     }, {
-        question: "Where is Tyrion Lannister from?",
-        answerOptions: ["Casterly Rock", "Lannisport", "King's Landing", "Winterfell"],
-        correctAnswer: "Casterly Rock"
+        questionText: "Where is Tyrion Lannister from?",
+        answerOptions: [
+            {
+                answer: "Casterly Rock",
+                htmlID: "rock"
+            }, {
+                answer: "Lannisport",
+                htmlID: "lannisport"
+            }, {
+                answer: "King's Landing",
+                htmlID: "landing"
+            }, {
+                answer: "Winterfell",
+                htmlID: "winterfell"
+            }],
+        correctAnswer: "Casterly Rock",
+        htmlRadioName: "tyrion"
     }, {
-        question: "What is the name of Ned Stark's sister?", 
-        answerOptions: ["Lyanna", "Daenerys", "Meera", "Catelyn"],
-        correctAnswer: "Lyanna"
+        questionText: "What is the name of Ned Stark's sister?", 
+        answerOptions: [
+            {
+                answer: "Lyanna",
+                htmlID: "lyanna"
+            }, {
+                answer: "Daenerys",
+                htmlID: "daenerys"
+            }, {
+                answer: "Meera",
+                htmlID: "meera"
+            }, {
+                answer: "Catelyn",
+                htmlID: "catelyn"
+            }],
+        correctAnswer: "Lyanna",
+        htmlRadioName: "sister"
     }, {
-        question: "What is the name of the body of water that separates Westeros from Essos?", 
-        answerOptions: ["The Dividing Sea", "The Wide Sea", "The Calm Sea", "The Narrow Sea"],
-        correctAnswer: "The Narrow Sea"
+        questionText: "What is the name of the body of water that separates Westeros from Essos?", 
+        answerOptions: [
+            {
+                answer: "The Dividing Sea",
+                htmlID: "dividing"
+            }, {
+                answer: "The Wide Sea",
+                htmlID: "wide"
+            }, {
+                answer: "The Calm Sea",
+                htmlID: "calm"
+            }, {
+                answer: "The Narrow Sea",
+                htmlID: "narrow"
+            }],
+        correctAnswer: "The Narrow Sea",
+        htmlRadioName: "water"
     }
 ]));
