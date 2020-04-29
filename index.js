@@ -18,7 +18,7 @@ function handleQuiz(quizQuestions) {
     function handleQuizStart() {
         let quizStartLayout;
 
-        $(".js-quiz-start").on("click", event => {
+        $(".js-quiz-start").click(event => {
             event.preventDefault();
             console.log("handleQuizStart function ran");
 
