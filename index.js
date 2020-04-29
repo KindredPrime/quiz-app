@@ -10,8 +10,9 @@ function handleQuiz(quizQuestions) {
         let question = quizQuestions[questionNumber].question;
         let answerOptions = quizQuestions[questionNumber].answerOptions;
         let name = quizQuestions[questionNumber].htmlRadioName;
+        let questionID = quizQuestions[questionNumber].questionID;
 
-        $(".js-quiz-form").html(`<fieldset><legend>${question}</legend><input type="radio" id=${answerOptions[0].htmlID} name=${name} value=${answerOptions[0].htmlID}><label for=${answerOptions[0].htmlID}>${answerOptions[0].answer}</label><br><input type="radio" id=${answerOptions[1].htmlID} name=${name} value=${answerOptions[1].htmlID}><label for=${answerOptions[1].htmlID}>${answerOptions[1].answer}</label><br><input type="radio" id=${answerOptions[2].htmlID} name=${name} value=${answerOptions[2].htmlID}><label for=${answerOptions[2].htmlID}>${answerOptions[2].answer}</label><br><input type="radio" id=${answerOptions[3].htmlID} name=${name} value=${answerOptions[3].htmlID}><label for=${answerOptions[3].htmlID} class="last-answer">${answerOptions[3].answer}</label></fieldset><button type="submit" class="js-submit-answer">Submit</button>`);
+        $(".js-quiz-form").html(`<fieldset><legend data-question-id="${questionID}">${question}</legend><input type="radio" id=${answerOptions[0].htmlID} name=${name} value=${answerOptions[0].htmlID} required><label for=${answerOptions[0].htmlID}>${answerOptions[0].answer}</label><br><input type="radio" id=${answerOptions[1].htmlID} name=${name} value=${answerOptions[1].htmlID}><label for=${answerOptions[1].htmlID}>${answerOptions[1].answer}</label><br><input type="radio" id=${answerOptions[2].htmlID} name=${name} value=${answerOptions[2].htmlID}><label for=${answerOptions[2].htmlID}>${answerOptions[2].answer}</label><br><input type="radio" id=${answerOptions[3].htmlID} name=${name} value=${answerOptions[3].htmlID}><label for=${answerOptions[3].htmlID} class="last-answer">${answerOptions[3].answer}</label></fieldset><button type="submit" class="js-submit-answer">Submit</button>`);
     }
     
     // Handles starting the quiz when the user clicks the "Start Quiz" button
@@ -34,10 +35,54 @@ function handleQuiz(quizQuestions) {
 
         return quizStartLayout;
     }
+ 
+    // Render content that tells the user if their answer was right or wrong
+    function renderEvaluation(userAnswer) {
+        let questionID = $(".js-quiz-form").find("legend").data("question-id");
+        let correctAnswer = quizQuestions[questionID].correctAnswer;
+
+        let htmlElements = "";
+        if(userAnswer.html() === correctAnswer) {
+            htmlElements = `<div class="correct-answer"><p>Correct!</p></div>`;
+        }
+        else { // Wrong answer
+            htmlElements = `<div class="wrong-answer"><p>You know nothing.</p><p>The correct answer is: ${correctAnswer}</p></div>`;
+        }
+
+        // Add the HTML elements below their answer telling them their answer is correct
+        if(userAnswer.next("br").length > 0) {
+            userAnswer.next("br").after(htmlElements);
+        }
+        else { // There's no <br> element following the label, so just add the HTML elements directly below the label
+            userAnswer.after(htmlElements);
+        }
+    }
+
+    // Change the submit button to the "Next >" button
+    function renderNextButton() {
+        $(".js-submit-answer").text("Next >");
+        $(".js-submit-answer").addClass("js-next-button");
+        $(".js-submit-answer").removeClass("js-submit-answer");
+    }
 
     // Handles checking the user's answer to a question when they click the "Submit" button
     function handleAnswerSubmit() {
-        console.log("handleAnswerSubmit function ran");
+        $(".js-quiz-form").on("click", ".js-submit-answer", event => {
+            event.preventDefault();
+            
+            // Find the text of the selected answer
+            let selectedRadio = $(".js-quiz-form").find("input[type='radio']:checked");
+            let selectedAnswer = $(".js-quiz-form").find(`label[for="${selectedRadio.attr("id")}"]`);
+
+            // If no answer was selected, instruct the user to select one
+            if(selectedAnswer.length === 0) {
+                alert("You must select an answer");
+            }
+            else { // An answer was selected
+                renderEvaluation(selectedAnswer);
+                renderNextButton();
+            }
+        });
     }
 
     // Handles generating the next layout when the user clicks the "Next >" button
@@ -74,7 +119,8 @@ $(handleQuiz([
                 htmlID: "snow"
         }],
         correctAnswer: "George R. R. Martin",
-        htmlRadioName: "author"
+        htmlRadioName: "author",
+        questionID: 0
     }, {
         question: "What is the name of the third book in the Song of Ice and Fire book series?",
         answerOptions: ["A Hail of Halberds", "A Monsoon of Maces", "A Storm of Swords", "A Downpour of Duels"],

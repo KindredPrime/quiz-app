@@ -84,7 +84,7 @@ fieldset {
     color: red;
 }
 
-.next-button {
+.js-next-button {
     position: absolute;
     bottom: 10px;
     right: 50px;
