@@ -1,14 +1,4 @@
 function handleQuiz(quizQuestions) {
-    function updateQuestionTracker(questionNumber) {
-        // Check if the question number tracker has been added to the DOM yet
-        if($(".question-number").length === 0) {
-            $(".quiz-title").after(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2>`);
-        }
-        else {
-            $(".question-number").html(`Question: ${questionNumber}/${quizQuestions.length}`);
-        }
-    }
-
     // Renders the question for the provided number
     function renderQuestion(questionNumber) {
         let question = quizQuestions[questionNumber-1];
@@ -18,7 +8,8 @@ function handleQuiz(quizQuestions) {
 
         $(".js-quiz-form").html(`<fieldset><legend data-question-number="${questionNumber}">${questionText}</legend><input type="radio" id=${answerOptions[0].htmlID} name=${name} value=${answerOptions[0].htmlID} required><label for=${answerOptions[0].htmlID}>${answerOptions[0].answer}</label><br><input type="radio" id=${answerOptions[1].htmlID} name=${name} value=${answerOptions[1].htmlID}><label for=${answerOptions[1].htmlID}>${answerOptions[1].answer}</label><br><input type="radio" id=${answerOptions[2].htmlID} name=${name} value=${answerOptions[2].htmlID}><label for=${answerOptions[2].htmlID}>${answerOptions[2].answer}</label><br><input type="radio" id=${answerOptions[3].htmlID} name=${name} value=${answerOptions[3].htmlID}><label for=${answerOptions[3].htmlID} class="last-answer">${answerOptions[3].answer}</label></fieldset><button type="submit" class="js-submit-answer">Submit</button>`);
 
-        updateQuestionTracker(questionNumber);
+        // Update the question tracker
+        $(".question-number").html(`Question: ${questionNumber}/${quizQuestions.length}`);
     }
     
     // Handles starting the quiz when the user clicks the "Start Quiz" button
@@ -26,7 +17,8 @@ function handleQuiz(quizQuestions) {
         $(".js-quiz-start").click(event => {
             event.preventDefault();
 
-            // Add the score tracker to the DOM
+            // Add the trackers to the DOM
+            $("header").append(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2>`);
             $("header").append(`<h2 class="score">Score: 0/${quizQuestions.length}</h2>`);
 
             // Render the first question
