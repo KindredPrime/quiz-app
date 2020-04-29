@@ -87,7 +87,12 @@ function handleQuiz(quizQuestions) {
 
     // Handles generating the next layout when the user clicks the "Next >" button
     function handleNextLayout() {
-        console.log("handleNextLayout function ran");
+        $(".js-quiz-form").on("click", ".js-next-button", event => {
+            event.preventDefault();
+            
+            let currentQuestionNumber = $(".js-quiz-form").find("legend").data("question-number");
+            renderQuestion(currentQuestionNumber+1);
+        });
     }
 
     // Handles restarting the quiz when the user clicks the "Restart Quiz" button
