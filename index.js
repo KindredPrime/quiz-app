@@ -85,13 +85,25 @@ function handleQuiz(quizQuestions) {
         });
     }
 
+    // Renders the final quiz results layout
+    function renderQuizResults() {
+        $(".js-quiz-form").find("*").remove();
+        $(".js-quiz-form").append(`<p>Your final score is 8/8.</p><button type="submit" class="js-restart-quiz">Restart Quiz</button>`);
+    }
+
     // Handles generating the next layout when the user clicks the "Next >" button
     function handleNextLayout() {
         $(".js-quiz-form").on("click", ".js-next-button", event => {
             event.preventDefault();
             
             let currentQuestionNumber = $(".js-quiz-form").find("legend").data("question-number");
-            renderQuestion(currentQuestionNumber+1);
+
+            if(currentQuestionNumber < quizQuestions.length) {
+                renderQuestion(currentQuestionNumber+1);
+            }
+            else {
+                renderQuizResults();
+            }
         });
     }
 
@@ -125,7 +137,7 @@ $(handleQuiz([
         }],
         correctAnswer: "George R. R. Martin",
         htmlRadioName: "author"
-    }, {
+    }/*, {
         questionText: "What is the name of the third book in the Song of Ice and Fire book series?",
         answerOptions: [
             {
@@ -251,5 +263,5 @@ $(handleQuiz([
             }],
         correctAnswer: "The Narrow Sea",
         htmlRadioName: "water"
-    }
+    }*/
 ]));
