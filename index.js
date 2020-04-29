@@ -17,14 +17,8 @@ function handleQuiz(quizQuestions) {
     
     // Handles starting the quiz when the user clicks the "Start Quiz" button
     function handleQuizStart() {
-        let quizStartLayout;
-
         $(".js-quiz-start").click(event => {
             event.preventDefault();
-            console.log("handleQuizStart function ran");
-
-            // Hold on to the HTML content that was removed from the page, so I can add it back in later
-            quizStartLayout = $(".js-quiz-form").children().detach();
 
             // Render the Question and Score trackers
             renderTrackers();
@@ -32,8 +26,6 @@ function handleQuiz(quizQuestions) {
             // Render the first question
             renderQuestion(1);
         });
-
-        return quizStartLayout;
     }
  
     // Render content that tells the user if their answer was right or wrong
@@ -87,8 +79,7 @@ function handleQuiz(quizQuestions) {
 
     // Renders the final quiz results layout
     function renderQuizResults() {
-        $(".js-quiz-form").find("*").remove();
-        $(".js-quiz-form").append(`<p>Your final score is 8/8.</p><button type="submit" class="js-restart-quiz">Restart Quiz</button>`);
+        $(".js-quiz-form").html(`<p>Your final score is 8/8.</p><button type="submit" class="js-restart-quiz">Restart Quiz</button>`);
     }
 
     // Handles generating the next layout when the user clicks the "Next >" button
@@ -107,12 +98,22 @@ function handleQuiz(quizQuestions) {
         });
     }
 
-    // Handles restarting the quiz when the user clicks the "Restart Quiz" button
-    function handleQuizRestart() {
-        console.log("handleQuizRestart function ran");
+    // Renders the Start Quiz Layout
+    function renderStartQuizLayout() {
+        $(".js-quiz-form").html(`<p>Test how much you know about the book series "A Song of Ice and Fire".</p><button type="submit" class="js-quiz-start">Start Quiz</button>`);
     }
 
-    let startLayout = handleQuizStart();
+    // Handles restarting the quiz when the user clicks the "Restart Quiz" button
+    function handleQuizRestart() {
+        $(".js-quiz-form").on("click", ".js-restart-quiz", event => {
+            event.preventDefault();
+
+            // Render the first question
+            renderQuestion(1);
+        });
+    }
+
+    handleQuizStart();
     handleAnswerSubmit();
     handleNextLayout();
     handleQuizRestart();
