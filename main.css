@@ -7,8 +7,7 @@ body {
 }
 
 header {
-    position: relative;
-    width: 50%;
+    width: 75%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -19,22 +18,21 @@ header {
     color: white;
 }
 
+.trackers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
 .question-number, .score {
-    position: absolute;
+    text-align: center;
     color: white;
-}
-
-.question-number {
-    left: 25%;
-}
-
-.score {
-    left: 55%;
+    margin-bottom: 0px;
 }
 
 .js-quiz-form {
     position: relative;
-    margin-top: 75px;
+    margin-top: 50px;
     background-color: lightgrey;
     padding: 15px;
     border: 1px solid black;
@@ -56,21 +54,10 @@ fieldset {
     border: none;
 }
 
-/*
-    Displays the radio input and its label on the same line
-*/
-/*.js-quiz-form input[type="radio"], .js-quiz-form input[type="radio"]+label {
-    display: inline-block;
-}*/
-
-.last-answer {
-    display: inline-block;
-    margin-bottom: 20px;
-}
-
 .js-quiz-form button[type="submit"] {
     display: block;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .correct-answer, .wrong-answer {
@@ -81,11 +68,11 @@ fieldset {
 }
 
 .correct-answer {
-    width: 75px;
+    width: 55px;
 }
 
 .wrong-answer {
-    width: 300px;
+    width: 80%;
 }
 
 .correct-answer p, .wrong-answer p {
@@ -98,6 +85,10 @@ fieldset {
 
 .wrong-answer p {
     color: red;
+}
+
+.js-eval-answer-spacing {
+    margin-bottom: 30px;
 }
 
 .js-next-button {

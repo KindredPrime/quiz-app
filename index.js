@@ -18,8 +18,9 @@ function handleQuiz(quizQuestions) {
             event.preventDefault();
 
             // Add the trackers to the DOM
-            $("header").append(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2>`);
-            $("header").append(`<h2 class="score">Score: 0/${quizQuestions.length}</h2>`);
+            $("header").append("<div class='trackers'></div>");
+            $(".trackers").append(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2>`);
+            $(".trackers").append(`<h2 class="score">Score: 0/${quizQuestions.length}</h2>`);
 
             // Render the first question
             renderQuestion(1);
@@ -28,14 +29,26 @@ function handleQuiz(quizQuestions) {
  
     // Render content that tells the user if their answer was right or wrong
     function renderEvaluation(userAnswer, correctAnswer) {
-        let htmlElements = userAnswer.html() === correctAnswer ? `<div class="correct-answer"><p>Correct!</p></div>` : `<div class="wrong-answer"><p>You know nothing.</p><p>The correct answer is: ${correctAnswer}</p></div>`;
+        let correctAnswerEvalDiv = `<div class="correct-answer"><p>Correct!</p></div>`;
+        let wrongAnswerEvalDiv = `<div class="wrong-answer"><p>You know nothing.</p><p>The correct answer is: ${correctAnswer}</p></div>`;
 
-        // Add the HTML elements below their answer telling them their answer is correct
+        let answerEvalDiv = userAnswer.html() === correctAnswer ? correctAnswerEvalDiv : wrongAnswerEvalDiv;
+
+        // Add the HTML elements below their answer telling them whether their answer is correct
+        // If there's a <br> element following the answer, put the evaluation div after the <br> tag
         if(userAnswer.next("br").length > 0) {
-            userAnswer.next("br").after(htmlElements);
+            userAnswer.next("br").after(answerEvalDiv);
         }
-        else { // There's no <br> element following the label, so just add the HTML elements directly below the label
-            userAnswer.after(htmlElements);
+        else {
+            userAnswer.after(answerEvalDiv);
+        }
+
+        // Add an HTML class to the lowest HTML element in the form for CSS styling
+        if(userAnswer.hasClass("last-answer")) {
+            userAnswer.siblings("div").addClass("js-eval-answer-spacing");
+        }
+        else {
+            userAnswer.siblings("input").last().addClass("js-eval-answer-spacing");
         }
     }
 
@@ -49,7 +62,6 @@ function handleQuiz(quizQuestions) {
     function evaluateAnswer(userAnswer) {
         let questionNumber = $(".js-quiz-form").find("legend").data("question-number");
         let correctAnswer = quizQuestions[questionNumber-1].correctAnswer;
-        //let userIsCorrect = userAnswer.html() === correctAnswer;
 
         renderEvaluation(userAnswer, correctAnswer);
         
