@@ -47,7 +47,6 @@ header {
     margin-left: auto;
     margin-right: auto;
     font-family: "Inconsolata";
-    font-size: 20px;
 }
 
 legend {
@@ -88,10 +87,6 @@ fieldset {
     width: 78px;
 }
 
-.wrong-answer {
-    width: 80%;
-}
-
 .correct-answer p, .wrong-answer p {
     margin: 0;
 }
@@ -129,6 +124,14 @@ Mobile devices
     .js-during-quiz-margin {
         margin-top: 45px;
     }
+
+    .js-quiz-form {
+        font-size: 20px;
+    }
+
+    .wrong-answer {
+        width: 85%;
+    }
 }
 
 /*
@@ -145,6 +148,14 @@ Tablets
 
     .js-during-quiz-margin {
         margin-top: 28px;
+    }
+
+    .js-quiz-form {
+        font-size: 22px;
+    }
+
+    .wrong-answer {
+        width: 75%;
     }
 }
 
@@ -165,5 +176,13 @@ Desktop computers
 
     .js-during-quiz-margin {
         margin-top: 28px;
+    }
+
+    .js-quiz-form {
+        font-size: 25px;
+    }
+
+    .wrong-answer {
+        width: 60%;
     }
 }
