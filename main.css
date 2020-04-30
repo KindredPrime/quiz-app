@@ -1,5 +1,10 @@
 body {
-    background: url("Castle\ Wall\ Background.png") no-repeat center center fixed; 
+    background: 
+        linear-gradient(
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.3)
+        ),
+        url("Castle\ Wall\ Background.png") no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -15,7 +20,8 @@ header {
 .quiz-title {
     text-align: center;
     margin-bottom: 0;
-    color: white;
+    color: lightblue;
+    text-shadow: black 2px 2px 10px;
 }
 
 .trackers {
@@ -25,8 +31,9 @@ header {
 
 .question-number, .score {
     text-align: center;
-    color: white;
+    color: rgb(255, 72, 0);
     margin-bottom: 0px;
+    text-shadow: black 1px 1px 10px;
 }
 
 .js-quiz-form {
