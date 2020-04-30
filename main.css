@@ -20,7 +20,6 @@ header {
 
 .trackers {
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
 }
 
@@ -32,7 +31,6 @@ header {
 
 .js-quiz-form {
     position: relative;
-    margin-top: 50px;
     background-color: lightgrey;
     padding: 15px;
     border: 1px solid black;
@@ -97,9 +95,31 @@ fieldset {
     right: 50px;
 }
 
+@media screen and (max-width: 519px) {
+    .trackers {
+        flex-direction: column;
+    }
+
+    .js-before-quiz-margin {
+        margin-top: 140px;
+    }
+    
+    .js-during-quiz-margin {
+        margin-top: 45px;
+    }
+}
+
 @media screen and (min-width: 520px) {
     .trackers {
         flex-direction: row;
+    }
+
+    .js-before-quiz-margin {
+        margin-top: 75px;
+    }
+
+    .js-during-quiz-margin {
+        margin-top: 28px;
     }
 }
 
@@ -109,5 +129,13 @@ fieldset {
         justify-content: space-around;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .js-before-quiz-margin {
+        margin-top: 75px;
+    }
+
+    .js-during-quiz-margin {
+        margin-top: 28px;
     }
 }

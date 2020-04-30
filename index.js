@@ -22,6 +22,10 @@ function handleQuiz(quizQuestions) {
             $(".trackers").append(`<h2 class="question-number">Question: 1/${quizQuestions.length}</h2>`);
             $(".trackers").append(`<h2 class="score">Score: 0/${quizQuestions.length}</h2>`);
 
+            // Change CSS styling for quiz form
+            $(".js-quiz-form").removeClass("js-before-quiz-margin");
+            $(".js-quiz-form").addClass("js-during-quiz-margin");
+
             // Render the first question
             renderQuestion(1);
         });
