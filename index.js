@@ -1,4 +1,6 @@
+// Any set of quiz questions can be provided
 function handleQuiz(quizQuestions) {
+    
     // Renders the question for the provided number
     function renderQuestion(questionNumber) {
         let question = quizQuestions[questionNumber-1];
