@@ -20,8 +20,8 @@ header {
 .quiz-title {
     text-align: center;
     margin-bottom: 0;
-    color: lightblue;
-    text-shadow: black 2px 2px 10px;
+    color: white;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .trackers {
@@ -33,7 +33,7 @@ header {
     text-align: center;
     color: white;
     margin-bottom: 0px;
-    text-shadow: black 1px 1px 10px;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .js-quiz-form {
@@ -75,7 +75,7 @@ label {
     padding-bottom: 5px;
     font-weight: 700;
     font-family: "Merienda";
-    text-shadow: white 1px 1px 5px;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
     border: 1px solid white;
 }
 
@@ -84,10 +84,6 @@ label {
     padding: 10px;
     margin: 10px;
     background-color: white;
-}
-
-.correct-answer {
-    width: 78px;
 }
 
 .correct-answer p, .wrong-answer p {
@@ -136,6 +132,10 @@ Mobile devices
         margin-top: 10px;
     }
 
+    .correct-answer {
+        width: 78px;
+    }
+
     .wrong-answer {
         width: 85%;
     }
@@ -163,6 +163,14 @@ Tablets
 
     input[type="radio"] {
         margin-top: 15px;
+    }
+
+    .js-quiz-form button[type="submit"] {
+        font-size: 18px;
+    }
+
+    .correct-answer {
+        width: 85px;
     }
 
     .wrong-answer {
@@ -199,6 +207,10 @@ Desktop computers
 
     .js-quiz-form button[type="submit"] {
         font-size: 20px;
+    }
+
+    .correct-answer {
+        width: 95px;
     }
 
     .wrong-answer {
